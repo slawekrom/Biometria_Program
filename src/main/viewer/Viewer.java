@@ -24,13 +24,21 @@ public class Viewer extends JFrame {
     private  JMenu filters  = new JMenu("Filters");
     private JMenuItem mediana = new JMenuItem("Mediana filter");
     private JMenuItem kuwahar = new JMenuItem("Kuwahar filter");
+    private JMenuItem laplaceFilter = new JMenuItem("Set Laplace mask");
+    private JMenuItem sobelFilter0 = new JMenuItem("Sobel filter 0 ");
+    private JMenuItem sobelFilter45 = new JMenuItem("Sobel filter 45 ");
+    private JMenuItem sobelFilter90 = new JMenuItem("Sobel filter 90 ");
+    private JMenuItem sobelFilter135 = new JMenuItem("Sobel filter 135 ");
+    private JMenuItem sharpFilter = new JMenuItem("Filtr Wyostrzający");
+    private JMenuItem HP1Filter = new JMenuItem("HP 1 Filter");
+    private JMenuItem gaussianBlur = new JMenuItem("Gaussian blur Filter");
     private JMenuItem bernsen = new JMenuItem("Bernsen method");
     private JMenuItem byR = new JMenuItem("Convert by R");
     private JMenuItem byG = new JMenuItem("Convert by G");
     private JMenuItem byB = new JMenuItem("Convert by B");
     private JMenuItem byRGB = new JMenuItem("Convert by RGB");
     private JMenuItem stretchHistogram = new JMenuItem("Stretch histogram");
-    private JMenuItem alignHistogram = new JMenuItem("Align histogram");
+    private JMenuItem equalizeHistogram = new JMenuItem("equalize histogram");
     private JMenuItem lightenImage = new JMenuItem("Lighten image");
     private JMenuItem darkenImage = new JMenuItem("Darken image");
     private JMenuItem niblack = new JMenuItem("Niblack method");
@@ -40,6 +48,7 @@ public class Viewer extends JFrame {
     private JMenuItem drawBlueHistogram = new JMenuItem("Draw BLUE histogram");
     private JMenuItem drawRGBHistogram = new JMenuItem("Draw RGB/3 histogram");
     private JMenuItem loadImage = new JMenuItem("Load image");
+    private JMenuItem loadLenaImage = new JMenuItem("Load Lena Image");
     private JMenuItem saveImage = new JMenuItem("Save image");
     private FotoPanel fotoPanel;
     private HistogramOperations histogramOperations;
@@ -65,6 +74,7 @@ public class Viewer extends JFrame {
         menuBar.add(files);
         files.add(loadImage);
         files.add(saveImage);
+        files.add(loadLenaImage);
         add(menuBar, BorderLayout.NORTH);
         menuBar.add(histogramItem);
         histogramItem.add(calculateHistograms);
@@ -78,6 +88,14 @@ public class Viewer extends JFrame {
         menuBar.add(filters);
         filters.add(mediana);
         filters.add(kuwahar);
+        filters.add(laplaceFilter);
+        filters.add(sobelFilter0);
+        filters.add(sobelFilter45);
+        filters.add(sobelFilter90);
+        filters.add(sobelFilter135);
+        filters.add(sharpFilter);
+        filters.add(HP1Filter);
+        filters.add(gaussianBlur);
         binarization.add(bernsen);
         binarization.add(niblack);
         convetToGreyScale.add(byR);
@@ -85,7 +103,7 @@ public class Viewer extends JFrame {
         convetToGreyScale.add(byB);
         convetToGreyScale.add(byRGB);
         operations.add(stretchHistogram);
-        operations.add(alignHistogram);
+        operations.add(equalizeHistogram);
         operations.add(lightenImage);
         operations.add(darkenImage);
 
@@ -102,6 +120,16 @@ public class Viewer extends JFrame {
                 pack();
                 setExtendedState(JFrame.MAXIMIZED_BOTH);
             }
+        });
+        loadLenaImage.addActionListener(e -> {
+
+            BufferedImage img = ImageSharedOperations.loadImage("C:\\Users\\Sławek\\Pictures\\lena.jpg");
+            fotoPanel.setBufferedImage(img);
+            fotoPanel.loadImage();
+            add(fotoPanel);
+            pack();
+            setExtendedState(JFrame.MAXIMIZED_BOTH);
+
         });
 
         saveImage.addActionListener((ActionEvent e) -> {
@@ -203,7 +231,7 @@ public class Viewer extends JFrame {
             calculateHistogram();
 
         });
-        alignHistogram.addActionListener(e -> {
+        equalizeHistogram.addActionListener(e -> {
             BufferedImage img = ImageSharedOperations.convertIconToImage(fotoPanel.getImageIcon());
             distrs = histogramOperations.calculateDistr(img,histograms);
             calculateDistrLUT();
@@ -397,6 +425,22 @@ public class Viewer extends JFrame {
         kuwahar.addActionListener(e -> {
             fotoPanel.kuwaharFilter();
         });
+        laplaceFilter.addActionListener(e ->
+                fotoPanel.setLaplaceMask());
+        sobelFilter0.addActionListener(e ->
+                fotoPanel.setSobelMask0());
+        sobelFilter45.addActionListener(e ->
+                fotoPanel.setSobelMask45());
+        sobelFilter90.addActionListener(e ->
+                fotoPanel.setSobelMask90());
+        sobelFilter135.addActionListener(e ->
+                fotoPanel.setSobelMask135());
+        sharpFilter.addActionListener(e ->
+                fotoPanel.setSharpeningFilter());
+        HP1Filter.addActionListener(e ->
+                fotoPanel.setHP1Filter());
+        gaussianBlur.addActionListener(e ->
+                fotoPanel.setGaussianBlurFilter());
     }
 
     private void calculateLUT(){
@@ -491,8 +535,5 @@ public class Viewer extends JFrame {
         maxG = histogramOperations.getMaxG();
         maxB = histogramOperations.getMaxB();
     }
-
-
-
 
 }

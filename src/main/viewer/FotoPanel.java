@@ -20,8 +20,8 @@ public class FotoPanel extends JPanel {
     private JLabel BLabel = new JLabel("B");
     private JLabel enterThreshold = new JLabel("Enter threshold");
     private JLabel enterContrastThreshold = new JLabel("Enter contrast threshold");
-    private JLabel enter_k = new JLabel("Enter k parameter");
-    private JLabel window_size = new JLabel("enter window size");
+    private JLabel enter_k = new JLabel("Enter k parameter for niblack method ");
+    private JLabel window_size = new JLabel("enter mask size for niblack method ");
     private JLabel maskLabel = new JLabel("Mask");
     private JTextField mask_0_0 = new JTextField();
     private JTextField mask_0_1 = new JTextField();
@@ -354,17 +354,8 @@ public class FotoPanel extends JPanel {
         add(filter);
         filter.setBounds(900,600,100,40);
         filter.addActionListener(e -> {
-            setMask();
-            filters.setMask(mask);
-            BufferedImage img = filters.filterImage(ImageSharedOperations.convertIconToImage(getImageIcon()));
-            JFrame jFrame = new JFrame();
-            JLabel jLabel = new JLabel();
-            jLabel.setSize(img.getWidth(),img.getHeight());
-            jLabel.setIcon(new ImageIcon(img));
-            jFrame.add(jLabel);
-            jFrame.setSize(img.getWidth(),img.getHeight());
-            jFrame.show();
-            fotoLabel.setIcon(new ImageIcon(img));
+            doFilter();
+            /*fotoLabel.setIcon(new ImageIcon(img));*/
 
         });
     }
@@ -407,4 +398,113 @@ public class FotoPanel extends JPanel {
         WritableRaster raster = bi.copyData(bi.getRaster().createCompatibleWritableRaster());
         return new BufferedImage(cm, raster, isAlphaPremultiplied, null);
     }
+    public void setLaplaceMask(){
+        mask_0_0.setText("-1");
+        mask_0_1.setText("-1");
+        mask_0_2.setText("-1");
+        mask_1_0.setText("-1");
+        mask_1_1.setText("8");
+        mask_1_2.setText("-1");
+        mask_2_0.setText("-1");
+        mask_2_1.setText("-1");
+        mask_2_2.setText("-1");
+        doFilter();
+    }
+    public void setSobelMask0(){
+        mask_0_0.setText("-1");
+        mask_0_1.setText("0");
+        mask_0_2.setText("1");
+        mask_1_0.setText("-2");
+        mask_1_1.setText("0");
+        mask_1_2.setText("2");
+        mask_2_0.setText("-1");
+        mask_2_1.setText("0");
+        mask_2_2.setText("1");
+        doFilter();
+    }
+    public void setSobelMask90(){
+        mask_0_0.setText("1");
+        mask_0_1.setText("2");
+        mask_0_2.setText("1");
+        mask_1_0.setText("0");
+        mask_1_1.setText("0");
+        mask_1_2.setText("0");
+        mask_2_0.setText("-1");
+        mask_2_1.setText("-2");
+        mask_2_2.setText("-1");
+        doFilter();
+    }
+    public void setSobelMask45(){
+        mask_0_0.setText("0");
+        mask_0_1.setText("1");
+        mask_0_2.setText("2");
+        mask_1_0.setText("-1");
+        mask_1_1.setText("0");
+        mask_1_2.setText("1");
+        mask_2_0.setText("-2");
+        mask_2_1.setText("-1");
+        mask_2_2.setText("0");
+        doFilter();
+    }
+    public void setSobelMask135(){
+        mask_0_0.setText("2");
+        mask_0_1.setText("1");
+        mask_0_2.setText("0");
+        mask_1_0.setText("1");
+        mask_1_1.setText("0");
+        mask_1_2.setText("-1");
+        mask_2_0.setText("0");
+        mask_2_1.setText("-1");
+        mask_2_2.setText("-2");
+        doFilter();
+    }
+    public void setSharpeningFilter(){
+        mask_0_0.setText("-1");
+        mask_0_1.setText("-1");
+        mask_0_2.setText("-1");
+        mask_1_0.setText("-1");
+        mask_1_1.setText("9");
+        mask_1_2.setText("-1");
+        mask_2_0.setText("-1");
+        mask_2_1.setText("-1");
+        mask_2_2.setText("-1");
+        doFilter();
+    }
+    public void setHP1Filter(){
+        mask_0_0.setText("0");
+        mask_0_1.setText("-1");
+        mask_0_2.setText("0");
+        mask_1_0.setText("-1");
+        mask_1_1.setText("5");
+        mask_1_2.setText("-1");
+        mask_2_0.setText("0");
+        mask_2_1.setText("-1");
+        mask_2_2.setText("0");
+        doFilter();
+    }
+    public void setGaussianBlurFilter(){
+        mask_0_0.setText("1");
+        mask_0_1.setText("2");
+        mask_0_2.setText("1");
+        mask_1_0.setText("2");
+        mask_1_1.setText("4");
+        mask_1_2.setText("2");
+        mask_2_0.setText("1");
+        mask_2_1.setText("2");
+        mask_2_2.setText("1");
+        doFilter();
+    }
+    private void doFilter(){
+        setMask();
+        filters.setMask(mask);
+        BufferedImage img = filters.filterImage(ImageSharedOperations.convertIconToImage(getImageIcon()));
+        JFrame jFrame = new JFrame();
+        JLabel jLabel = new JLabel();
+        jLabel.setSize(img.getWidth(),img.getHeight());
+        jLabel.setIcon(new ImageIcon(img));
+        jFrame.add(jLabel);
+        jFrame.setSize(img.getWidth(),img.getHeight());
+        jFrame.show();
+    }
+
 }

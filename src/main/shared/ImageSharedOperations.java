@@ -13,6 +13,7 @@ public class ImageSharedOperations {
         BufferedImage image = null;
         try {
             image = ImageIO.read(new File(path));
+            System.out.println(path);
         } catch (IOException ex) {
             System.out.println("Error has occured during file reading: " + ex.getMessage());
         }

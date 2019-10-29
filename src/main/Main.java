@@ -9,6 +9,7 @@ public class Main {
 
     public static void main(String[] args) {
 	    Viewer viewer = new Viewer();
+	    viewer.setExtendedState(JFrame.MAXIMIZED_BOTH);
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException e) {
