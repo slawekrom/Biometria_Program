@@ -494,6 +494,18 @@ public class FotoPanel extends JPanel {
         mask_2_2.setText("1");
         doFilter();
     }
+    public void setPrewittFilter(){
+        mask_0_0.setText("1");
+        mask_0_1.setText("1");
+        mask_0_2.setText("1");
+        mask_1_0.setText("0");
+        mask_1_1.setText("0");
+        mask_1_2.setText("0");
+        mask_2_0.setText("-1");
+        mask_2_1.setText("-1");
+        mask_2_2.setText("-1");
+        doFilter();
+    }
     private void doFilter(){
         setMask();
         filters.setMask(mask);

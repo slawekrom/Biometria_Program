@@ -31,6 +31,7 @@ public class Viewer extends JFrame {
     private JMenuItem sobelFilter135 = new JMenuItem("Sobel filter 135 ");
     private JMenuItem sharpFilter = new JMenuItem("Filtr Wyostrzający");
     private JMenuItem HP1Filter = new JMenuItem("HP 1 Filter");
+    private JMenuItem prewittFilter = new JMenuItem("Prewitt 90");
     private JMenuItem gaussianBlur = new JMenuItem("Gaussian blur Filter");
     private JMenuItem bernsen = new JMenuItem("Bernsen method");
     private JMenuItem byR = new JMenuItem("Convert by R");
@@ -96,6 +97,7 @@ public class Viewer extends JFrame {
         filters.add(sharpFilter);
         filters.add(HP1Filter);
         filters.add(gaussianBlur);
+        filters.add(prewittFilter);
         binarization.add(bernsen);
         binarization.add(niblack);
         convetToGreyScale.add(byR);
@@ -441,6 +443,8 @@ public class Viewer extends JFrame {
                 fotoPanel.setHP1Filter());
         gaussianBlur.addActionListener(e ->
                 fotoPanel.setGaussianBlurFilter());
+        prewittFilter.addActionListener(e ->
+                fotoPanel.setPrewittFilter());
     }
 
     private void calculateLUT(){
