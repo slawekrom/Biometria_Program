@@ -41,6 +41,36 @@ public class Filters {
         }
         return copy;
     }
+    public BufferedImage dilationFilter(BufferedImage image){
+        BufferedImage copy = deepCopy(image);
+        Color color;
+        for(int w = 1; w < image.getWidth()-1 ; w++) {
+            for(int h = 1; h < image.getHeight()-1; h++) {
+                color = new Color(image.getRGB(w-1, h));
+                if (color.equals(Color.BLACK)){
+                    copy.setRGB(w, h, new Color(0,0,0).getRGB());
+                    continue;
+                }
+                color = new Color(image.getRGB(w+1, h));
+                if (color.equals(Color.BLACK)){
+                    copy.setRGB(w, h, new Color(0,0,0).getRGB());
+                    continue;
+                }
+                color = new Color(image.getRGB(w, h-1));
+                if (color.equals(Color.BLACK)){
+                    copy.setRGB(w, h, new Color(0,0,0).getRGB());
+                    continue;
+                }
+                color = new Color(image.getRGB(w, h+1));
+                if (color.equals(Color.BLACK)){
+                    copy.setRGB(w, h, new Color(0,0,0).getRGB());
+                    continue;
+                };
+            }
+        }
+        return copy;
+    }
+
     private int calculate_kuwahar(BufferedImage img,int w,int h){
         double sigmaR [] = new double[4];
         double sigmaG [] = new double[4];

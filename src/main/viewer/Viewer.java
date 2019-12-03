@@ -21,8 +21,10 @@ public class Viewer extends JFrame {
     private JMenu operations = new JMenu("Operations");
     private JMenu convetToGreyScale = new JMenu("Convert To Grey Scale");
     private JMenu binarization = new JMenu("Binarization");
+    private JMenu morphologicalFilters = new JMenu("Morphological filters");
     private  JMenu filters  = new JMenu("Filters");
     private JMenuItem mediana = new JMenuItem("Mediana filter");
+    private JMenuItem dilation = new JMenuItem("Dilation");
     private JMenuItem kuwahar = new JMenuItem("Kuwahar filter");
     private JMenuItem laplaceFilter = new JMenuItem("Set Laplace mask");
     private JMenuItem sobelFilter0 = new JMenuItem("Sobel filter 0 ");
@@ -108,6 +110,8 @@ public class Viewer extends JFrame {
         operations.add(equalizeHistogram);
         operations.add(lightenImage);
         operations.add(darkenImage);
+        menuBar.add(morphologicalFilters);
+        morphologicalFilters.add(dilation);
 
         setVisible(true);
         loadImage.addActionListener((ActionEvent e) -> {
@@ -445,6 +449,9 @@ public class Viewer extends JFrame {
                 fotoPanel.setGaussianBlurFilter());
         prewittFilter.addActionListener(e ->
                 fotoPanel.setPrewittFilter());
+        dilation.addActionListener(e->{
+            fotoPanel.dilationFilter();
+        });
     }
 
     private void calculateLUT(){

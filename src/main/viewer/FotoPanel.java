@@ -220,7 +220,7 @@ public class FotoPanel extends JPanel {
 
             }
         }
-        //fotoLabel.setIcon(new ImageIcon(newImage));
+        fotoLabel.setIcon(new ImageIcon(newImage));
         JFrame jFrame = new JFrame();
         JLabel jLabel = new JLabel();
         jLabel.setSize(newImage.getWidth(),newImage.getHeight());
@@ -398,6 +398,18 @@ public class FotoPanel extends JPanel {
         WritableRaster raster = bi.copyData(bi.getRaster().createCompatibleWritableRaster());
         return new BufferedImage(cm, raster, isAlphaPremultiplied, null);
     }
+
+    public void dilationFilter(){
+        BufferedImage image = filters.dilationFilter(ImageSharedOperations.convertIconToImage(getImageIcon()));
+        JFrame jFrame = new JFrame();
+        JLabel jLabel = new JLabel();
+        jLabel.setSize(image.getWidth(),image.getHeight());
+        jLabel.setIcon(new ImageIcon(image));
+        jFrame.add(jLabel);
+        jFrame.setSize(image.getWidth(),image.getHeight());
+        jFrame.show();
+    }
+
     public void setLaplaceMask(){
         mask_0_0.setText("-1");
         mask_0_1.setText("-1");
