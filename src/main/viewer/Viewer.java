@@ -25,6 +25,9 @@ public class Viewer extends JFrame {
     private  JMenu filters  = new JMenu("Filters");
     private JMenuItem mediana = new JMenuItem("Mediana filter");
     private JMenuItem dilation = new JMenuItem("Dilation");
+    private JMenuItem erosion = new JMenuItem("Erosion");
+    private JMenuItem opening = new JMenuItem("Opening");
+    private JMenuItem closing = new JMenuItem("Closing");
     private JMenuItem kuwahar = new JMenuItem("Kuwahar filter");
     private JMenuItem laplaceFilter = new JMenuItem("Set Laplace mask");
     private JMenuItem sobelFilter0 = new JMenuItem("Sobel filter 0 ");
@@ -112,6 +115,9 @@ public class Viewer extends JFrame {
         operations.add(darkenImage);
         menuBar.add(morphologicalFilters);
         morphologicalFilters.add(dilation);
+        morphologicalFilters.add(erosion);
+        morphologicalFilters.add(opening);
+        morphologicalFilters.add(closing);
 
         setVisible(true);
         loadImage.addActionListener((ActionEvent e) -> {
@@ -449,9 +455,14 @@ public class Viewer extends JFrame {
                 fotoPanel.setGaussianBlurFilter());
         prewittFilter.addActionListener(e ->
                 fotoPanel.setPrewittFilter());
-        dilation.addActionListener(e->{
-            fotoPanel.dilationFilter();
-        });
+        dilation.addActionListener(e->
+                fotoPanel.dilationFilter());
+        erosion.addActionListener(e->
+                fotoPanel.erosionFilter());
+        opening.addActionListener(e->
+                fotoPanel.openingFilter());
+        closing.addActionListener(e->
+                fotoPanel.closingFilter());
     }
 
     private void calculateLUT(){

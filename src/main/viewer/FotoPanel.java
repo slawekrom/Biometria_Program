@@ -131,7 +131,7 @@ public class FotoPanel extends JPanel {
                             c.getRed() >= threshold ? Color.WHITE.getRGB() : Color.BLACK.getRGB());
                 }
             }
-            //fotoLabel.setIcon(new ImageIcon(image));
+            fotoLabel.setIcon(new ImageIcon(image));
             JFrame jFrame = new JFrame();
             JLabel jLabel = new JLabel();
             jLabel.setSize(image.getWidth(),image.getHeight());
@@ -409,6 +409,39 @@ public class FotoPanel extends JPanel {
         jFrame.setSize(image.getWidth(),image.getHeight());
         jFrame.show();
     }
+    public void erosionFilter() {
+        BufferedImage image = filters.erosionFilter(ImageSharedOperations.convertIconToImage(getImageIcon()));
+        JFrame jFrame = new JFrame();
+        JLabel jLabel = new JLabel();
+        jLabel.setSize(image.getWidth(),image.getHeight());
+        jLabel.setIcon(new ImageIcon(image));
+        jFrame.add(jLabel);
+        jFrame.setSize(image.getWidth(),image.getHeight());
+        jFrame.show();
+    }
+    public void openingFilter() {
+        BufferedImage image = filters.erosionFilter(ImageSharedOperations.convertIconToImage(getImageIcon()));
+        BufferedImage img = filters.dilationFilter(image);
+        JFrame jFrame = new JFrame();
+        JLabel jLabel = new JLabel();
+        jLabel.setSize(image.getWidth(),image.getHeight());
+        jLabel.setIcon(new ImageIcon(img));
+        jFrame.add(jLabel);
+        jFrame.setSize(image.getWidth(),image.getHeight());
+        jFrame.show();
+    }
+
+    public void closingFilter() {
+        BufferedImage image = filters.dilationFilter(ImageSharedOperations.convertIconToImage(getImageIcon()));
+        BufferedImage img = filters.erosionFilter(image);
+        JFrame jFrame = new JFrame();
+        JLabel jLabel = new JLabel();
+        jLabel.setSize(image.getWidth(),image.getHeight());
+        jLabel.setIcon(new ImageIcon(img));
+        jFrame.add(jLabel);
+        jFrame.setSize(image.getWidth(),image.getHeight());
+        jFrame.show();
+    }
 
     public void setLaplaceMask(){
         mask_0_0.setText("-1");
@@ -530,5 +563,4 @@ public class FotoPanel extends JPanel {
         jFrame.setSize(img.getWidth(),img.getHeight());
         jFrame.show();
     }
-
 }
